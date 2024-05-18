@@ -15,7 +15,7 @@ os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 
 
-class AmazonDataIntegrator :
+class AmazonDWTablesFactorer :
 
     def __init__(self) -> None:
         self.spark_session = SparkSession.builder \
@@ -82,12 +82,12 @@ class AmazonDataIntegrator :
 
 
 if __name__ == "__main__":
-    data_integrator = AmazonDataIntegrator()
+    table_factorer = AmazonDWTablesFactorer()
 
     #get DW tables
-    movie_dimension  = data_integrator.getMovieDimension()
-    time_dimension = data_integrator.getTimeDimension()
-    fact_table = data_integrator.getFactTable()
+    movie_dimension  = table_factorer.getMovieDimension()
+    time_dimension = table_factorer.getTimeDimension()
+    fact_table = table_factorer.getFactTable()
 
     #save tables
 

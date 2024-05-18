@@ -16,7 +16,7 @@ os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 
 
-class NetFlixDataIntegrator :
+class NetflixDWTablesFactorer :
 
     def __init__(self) -> None:
         self.spark_session = SparkSession.builder \
@@ -69,12 +69,12 @@ class NetFlixDataIntegrator :
 
 if __name__ == "__main__":
 
-    data_integrator = NetFlixDataIntegrator()
+    table_factorer = NetflixDWTablesFactorer()
 
     # get tables of DW
-    time_dimension_df= data_integrator.getTimeDimension()
-    movie_dimension_df = data_integrator.getMovieDimension()
-    fact_df = data_integrator.getFactTable()
+    time_dimension_df= table_factorer.getTimeDimension()
+    movie_dimension_df = table_factorer.getMovieDimension()
+    fact_df = table_factorer.getFactTable()
 
 
     
