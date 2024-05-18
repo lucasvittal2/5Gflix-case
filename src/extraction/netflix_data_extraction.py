@@ -24,7 +24,7 @@ class NetflixDataExtractor:
 
         def __init__(self) -> None:
                 
-                self.spark_session = SparkSession.builder.appName("Netflix Data Integration").getOrCreate()
+                self.spark_session = SparkSession.builder.appName("Netflix Data Extraction").getOrCreate()
                 
         @staticmethod
         def saveAllExtractedDataToParquet(dfs: List[SparkDataFrame], source_paths: List[str], source_type: str = ".txt") -> None: 
@@ -44,7 +44,7 @@ class NetflixDataExtractor:
                 df = self.spark_session.read.text(txt_path).withColumnRenamed('value', 'line')
                 df = self.__getRecords(df)
                 df = self.__matchRecordsWithCorrespondentMovieId(df)
-                df = self.__standardizeSchema(df)
+                df = self.__standardizeRatingSchema(df)
                 return df
         
         def extractMovieData(self, csv_path:str)->SparkDataFrame:
@@ -71,7 +71,7 @@ class NetflixDataExtractor:
                 df = df.withColumn('movie_id', last('movie_id', True).over(window_spec))
                 return df
         
-        def __standardizeSchema(self, df):
+        def __standardizeRatingSchema(self, df):
 
                 df = df.filter(df.parts.isNotNull())
 
