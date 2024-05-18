@@ -11,8 +11,8 @@ import sys
 findspark.init()
 CUSTOMER_RATING_INDEX = 1
 DATE_RATING_INDEX=2
-NETFLIX_DATASOURCE = "assets/Sources Databases/netflix/"
-NETFLIX_EXTRACTED_DATA = "assets/Data Extracted/netflix/"
+NETFLIX_DATASOURCE = "assets/source-databases/netflix/"
+NETFLIX_EXTRACTED_DATA = "assets/data-extracted/netflix/"
 
 os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
@@ -106,9 +106,9 @@ if __name__ == "__main__":
 
         #load paths
         files = os.listdir(NETFLIX_DATASOURCE)
-        csv_paths = [NETFLIX_DATASOURCE + csv_file for csv_file in files if ".csv" in csv_file]
-        txt_paths = [NETFLIX_DATASOURCE + txt_file for txt_file in files if ".txt" in txt_file]
-        txt_paths = [txt_paths[0]]
+        csv_paths = [NETFLIX_DATASOURCE + csv_file for csv_file in files if "movie_titles" in csv_file]
+        txt_paths = [NETFLIX_DATASOURCE + txt_file for txt_file in files if "combined_data_" in txt_file]
+        
         
         #extracting rating paths
         rating_dfs  = [ data_extractor.extractRatingData(txt_path) for txt_path in txt_paths ]
