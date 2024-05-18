@@ -85,7 +85,7 @@ if __name__ == "__main__":
     fact_df = data_integrator.getFactTable()
 
 
-    client_dimension_df.show()
+    
     #save for checkpoint
 
     time_dimension_df.write.mode("overwrite").parquet(NETFLIX_DW_TABLES + "time_dimension")

@@ -10,15 +10,12 @@ mkdir -p "assets/data-integrated"
 mkdir -p "assets/data-integrated/netflix"
 mkdir -p "assets/data-integrated/amazon"
 
-# create dernomalized-data folders
-mkdir -p "assets/dernomalized-data"
-mkdir -p "assets/dernomalized-data/netflix"
-mkdir -p "assets/dernomalized-data/amazon"
+# create dw tables folders
+mkdir -p "assets/dw-tables"
+mkdir -p "assets/dw-tables/netflix"
+mkdir -p "assets/dw-tables/amazon"
 
-# create nomalized-data folders
-mkdir -p "assets/nomalized-data"
-mkdir -p "assets/nomalized-data/netflix"
-mkdir -p "assets/nomalized-data/amazon"
+
 
 # create source-data folders
 mkdir "assets/source-databases"
