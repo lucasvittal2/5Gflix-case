@@ -61,7 +61,8 @@ class NetFlixDataIntegrator :
                             .withColumnRenamed("client_id", "id")\
                             .drop_duplicates(["id"])\
                             .withColumn("name", sparkFunctions.expr("concat('client ', id)"))\
-                            .withColumn("subscribed_at", sparkFunctions.lit("NETFLIX"))
+                            .withColumn("subscribed_at", sparkFunctions.lit("NETFLIX"))\
+                            .withColumn("id", sparkFunctions.expr("concat('NET', id)") )
                             
         return client_dimension
 
