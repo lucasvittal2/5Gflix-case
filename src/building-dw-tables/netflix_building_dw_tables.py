@@ -33,7 +33,8 @@ class NetflixDWTablesFactorer :
         movie_dimension = movie_dimension.withColumnRenamed("year", "launch_year")\
                                 .withColumn("hosted_at", sparkFunctions.lit("NETFLIX"))\
                                 .withColumnRenamed("movie_id", "id")\
-                                .withColumnRenamed("title", "name")
+                                .withColumnRenamed("title", "name")\
+                                .select(["id", "name", "launch_year", "hosted_at"])
         
         # drop duplicates and order by launch year
         movie_dimension = movie_dimension.drop_duplicates(["id"]).orderBy("launch_year")
@@ -41,14 +42,15 @@ class NetflixDWTablesFactorer :
         return movie_dimension
 
     def getTimeDimension(self) -> SparkDataFrame:
-        rating_data = self.getFactTable()
 
+        rating_data = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "rating_data*/")
         
         time_dimension = rating_data.withColumn("day", sparkFunctions.dayofmonth(sparkFunctions.col("rating_date"))) \
                                     .withColumn("month", sparkFunctions.month(sparkFunctions.col("rating_date"))) \
                                     .withColumn("year", sparkFunctions.year(sparkFunctions.col("rating_date")))\
                                     .withColumnRenamed("rating_date", "date")\
-                                    .drop("movie_id", "client_id", "rating")
+                                    .drop("movie_id", "client_id", "rating")\
+                                    .select(["date","day","month", "year"])
                                     
 
         #drop duplicates and order by date
@@ -61,7 +63,8 @@ class NetflixDWTablesFactorer :
     def getFactTable(self) -> SparkDataFrame:
         rating_data = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "rating_data*/")\
                             .withColumn("rating_date", sparkFunctions.to_date(sparkFunctions.col("rating_date"), "yyyy-MM-dd"))\
-                            .withColumn("client_id", sparkFunctions.expr("concat('NET', client_id)") )
+                            .withColumn("client_id", sparkFunctions.expr("concat('NET', client_id)") )\
+                            .select(["rating_date", "client_id", "movie_id", "rating"])
         
         return rating_data
     
