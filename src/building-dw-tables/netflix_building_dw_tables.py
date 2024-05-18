@@ -31,6 +31,7 @@ class NetFlixDataIntegrator :
     def getMovieDimension(self) ->SparkDataFrame:
         movie_dimension = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "movie_data*/")
         movie_dimension = movie_dimension.withColumnRenamed("year", "launch_year")\
+                                .withColumn("hosted_at", sparkFunctions.lit("NETFLIX"))\
                                 .withColumnRenamed("movie_id", "id")\
                                 .withColumnRenamed("title", "name")
         
@@ -55,16 +56,6 @@ class NetFlixDataIntegrator :
 
         return time_dimension
 
-    def getClientDimension(self)-> SparkDataFrame:
-        rating_data = self.getFactTable()
-        client_dimension  = rating_data.select("client_id")\
-                            .withColumnRenamed("client_id", "id")\
-                            .drop_duplicates(["id"])\
-                            .withColumn("name", sparkFunctions.expr("concat('client ', id)"))\
-                            .withColumn("subscribed_at", sparkFunctions.lit("NETFLIX"))\
-                            
-                            
-        return client_dimension
 
 
     def getFactTable(self) -> SparkDataFrame:
@@ -83,7 +74,6 @@ if __name__ == "__main__":
     # get tables of DW
     time_dimension_df= data_integrator.getTimeDimension()
     movie_dimension_df = data_integrator.getMovieDimension()
-    client_dimension_df = data_integrator.getClientDimension()
     fact_df = data_integrator.getFactTable()
 
 
@@ -92,5 +82,4 @@ if __name__ == "__main__":
 
     time_dimension_df.write.mode("overwrite").parquet(NETFLIX_DW_TABLES + "time_dimension")
     movie_dimension_df.write.mode("overwrite").parquet(NETFLIX_DW_TABLES + "movie_dimension")
-    client_dimension_df.write.mode("overwrite").parquet(NETFLIX_DW_TABLES + "client_dimension")
     fact_df.write.mode("overwrite").parquet(NETFLIX_DW_TABLES + "fact_table")
