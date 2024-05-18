@@ -1,7 +1,3 @@
-assets/sources-databases/*
-assets/data-extracted/*
-assets/dw-tables/*
-*txt
-*csv
+assets
 README
 env
