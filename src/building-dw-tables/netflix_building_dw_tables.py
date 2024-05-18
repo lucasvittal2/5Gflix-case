@@ -29,7 +29,7 @@ class NetFlixDataIntegrator :
         
     
     def getMovieDimension(self) ->SparkDataFrame:
-        movie_dimension = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "movie_titles*/")
+        movie_dimension = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "movie_data*/")
         movie_dimension = movie_dimension.withColumnRenamed("year", "launch_year")\
                                 .withColumnRenamed("movie_id", "id")\
                                 .withColumnRenamed("title", "name")
@@ -62,14 +62,15 @@ class NetFlixDataIntegrator :
                             .drop_duplicates(["id"])\
                             .withColumn("name", sparkFunctions.expr("concat('client ', id)"))\
                             .withColumn("subscribed_at", sparkFunctions.lit("NETFLIX"))\
-                            .withColumn("id", sparkFunctions.expr("concat('NET', id)") )
+                            
                             
         return client_dimension
 
 
     def getFactTable(self) -> SparkDataFrame:
         rating_data = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "rating_data*/")\
-                            .withColumn("rating_date", sparkFunctions.to_date(sparkFunctions.col("rating_date"), "yyyy-MM-dd"))
+                            .withColumn("rating_date", sparkFunctions.to_date(sparkFunctions.col("rating_date"), "yyyy-MM-dd"))\
+                            .withColumn("client_id", sparkFunctions.expr("concat('NET', client_id)") )
         
         return rating_data
     

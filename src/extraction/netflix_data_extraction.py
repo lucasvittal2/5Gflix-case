@@ -44,7 +44,7 @@ class NetflixDataExtractor:
                 df = self.spark_session.read.text(txt_path).withColumnRenamed('value', 'line')
                 df = self.__getRecords(df)
                 df = self.__matchRecordsWithCorrespondentMovieId(df)
-                df = self.__standardizeRatingSchema(df)
+                df = self.__standardizeSchema(df)
                 return df
         
         def extractMovieData(self, csv_path:str)->SparkDataFrame:
@@ -71,7 +71,7 @@ class NetflixDataExtractor:
                 df = df.withColumn('movie_id', last('movie_id', True).over(window_spec))
                 return df
         
-        def __standardizeRatingSchema(self, df):
+        def __standardizeSchema(self, df):
 
                 df = df.filter(df.parts.isNotNull())
 
