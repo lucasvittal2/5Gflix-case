@@ -24,6 +24,9 @@ class DataIntegrator:
         integrated_movie_dimension = amazon_movie_dimension.union(netflix_movie_dimension)
         integrated_movie_dimension = integrated_movie_dimension.orderBy("name")
 
+        #drop nulls on primary key
+        integrated_movie_dimension = integrated_movie_dimension.filter(integrated_movie_dimension.id.isNotNull())
+
         return integrated_movie_dimension
     
     def integrateTimeDimensionTables(self) -> SparkDataFrame:
@@ -34,14 +37,26 @@ class DataIntegrator:
         netflix_time_dimension = self.spark_session.read.parquet(NETFLIX_DW_TABLE_PATH + "time_dimension")
         integrated_time_dimension = amazon_time_dimension.union(netflix_time_dimension)
 
+        
+
         #drop duplicated dates
         integrated_time_dimension = integrated_time_dimension.drop_duplicates(['date'])
+
+        #drop nulls on primary key
+        integrated_time_dimension = integrated_time_dimension.filter(integrated_time_dimension.date.isNotNull())
+
         return integrated_time_dimension
     
     def integrateFactTable(self):
         amazon_fact_table = self.spark_session.read.parquet(AMAZON_DW_TABLE_PATH + "fact_table")
         netflix_fact_table = self.spark_session.read.parquet(NETFLIX_DW_TABLE_PATH + "fact_table")
         integrated_fact_table = amazon_fact_table.union(netflix_fact_table)
+
+        #drop nulls on foreign keys
+        integrated_fact_table = integrated_fact_table.filter(integrated_fact_table.movie_id.isNotNull())
+        integrated_fact_table = integrated_fact_table.filter(integrated_fact_table.rating_date.isNotNull())
+        integrated_fact_table = integrated_fact_table.filter(integrated_fact_table.client_id.isNotNull())
+
         return integrated_fact_table
 
 if __name__ == "__main__":
@@ -56,4 +71,6 @@ if __name__ == "__main__":
     movie_dimension.write.mode("overwrite").parquet(DATA_INTEGRATED_PATH + "movie_dimension")
     time_dimension.write.mode("overwrite").parquet(DATA_INTEGRATED_PATH + "time_dimension")
     fact_table.write.mode("overwrite").parquet(DATA_INTEGRATED_PATH + "fact_table")
+
+
     
