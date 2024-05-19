@@ -47,9 +47,9 @@ class SnowflakeDataPlataformHandler(DataPlaformHandler):
                     return rows
                 
                 except Exception as err:
-                    query_type = query.split(" ")[0]
-                    print(f"the following error occured snowflake : \n\n{err}\n\n")
-                    print(f"Failure when executed the {query_type} query.")
+                    
+                    raise Exception("Failure on execute query due to following error: \n\n{err}\n\n")
+                    
                     
 
                     
