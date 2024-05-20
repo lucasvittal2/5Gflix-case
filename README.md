@@ -39,7 +39,7 @@ A little demonstration of final outcome:
 
 ![image](https://github.com/lucasvittal2/5Gflix-case/assets/62555057/b1fdc810-b9f6-44c4-91d7-3e00c5cc3601)
 
-Know 5GFLIX will be able to perform BI consulting to their business 👨‍💼👩‍💼📈📊
+Now 5GFLIX will be able to perform BI consulting to their business 👨‍💼👩‍💼📈📊
 
 
 ## 🚀 How to Set Up and Run the 5GFlix Market Analysis Project
