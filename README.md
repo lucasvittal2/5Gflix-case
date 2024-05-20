@@ -71,7 +71,7 @@ Follow these steps to clone, set up, and run the 5GFlix market analysis project 
      
 6. 🔍 Once you found how to get credentials on each plataform replace rename .env.copy to .env and put your credentials inside there:
    
-           ```
+```
               #SNOWFLAKE CREDENTIALS
               
               export USER_NAME="<USER_NAME>"
@@ -88,7 +88,7 @@ Follow these steps to clone, set up, and run the 5GFlix market analysis project 
               export AWS_SECRET_KEY="<AWS_SECRET_KEY>"
               export AWS_ACCESS_KEY="<AWS_ACCESS_KEY>"
               export AWS_BUCKET_NAME="<AWS_BUCKET_NAME>"
-           ```
+```
 5. **Set Up Environment Variables** 🌍
 
    ```bash
