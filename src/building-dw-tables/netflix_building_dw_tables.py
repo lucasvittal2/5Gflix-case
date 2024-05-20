@@ -17,10 +17,19 @@ os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 
 
 class NetflixDWTablesFactorer :
+    """
+    Descrição:
+        classe responsavel por criar tabelas do DW com esquema padronizado com extraidos dados da netflix
+    """
 
     def __init__(self) -> None:
+        """
+        Descrição:
+            Inicialização da aplicação spark que realiza fabricação das tabelas para DW com dados extraidos da netflix
+
+        """
         self.spark_session = SparkSession.builder \
-                            .appName("Netflix Data Integration") \
+                            .appName("Netflix Dw tables manufactoring") \
                             .config("spark.driver.memory", "4g") \
                             .getOrCreate()
 
@@ -29,6 +38,13 @@ class NetflixDWTablesFactorer :
         
     
     def getMovieDimension(self) ->SparkDataFrame:
+        """
+        Descrição:
+            função que fabrica tabela da dimensão filme com dados da netflix:
+        Saída:
+            Tabela dimensão filme no formato Dataframe
+
+        """
         movie_dimension = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "movie_data*/")
         movie_dimension = movie_dimension.withColumnRenamed("year", "launch_year")\
                                 .withColumn("hosted_at", sparkFunctions.lit("NETFLIX"))\
@@ -42,7 +58,13 @@ class NetflixDWTablesFactorer :
         return movie_dimension
 
     def getTimeDimension(self) -> SparkDataFrame:
+        """
+            Descrição:
+                função que fabrica tabela da dimensão tempo com dados da netflix:
+            Saída:
+                Tabela dimensão tempo no formato Dataframe
 
+        """
         rating_data = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "rating_data*/")
         
         time_dimension = rating_data.withColumn("day", sparkFunctions.dayofmonth(sparkFunctions.col("rating_date"))) \
@@ -61,6 +83,14 @@ class NetflixDWTablesFactorer :
 
 
     def getFactTable(self) -> SparkDataFrame:
+
+        """
+            Descrição:
+                função que fabrica tabela fato com dados da netflix:
+            Saída:
+                Tabela fato no formato Dataframe
+
+        """
         rating_data = self.spark_session.read.parquet(NETFLIX_EXTRACTED_DATA + "rating_data*/")\
                             .withColumn("rating_date", sparkFunctions.to_date(sparkFunctions.col("rating_date"), "yyyy-MM-dd"))\
                             .withColumn("client_id", sparkFunctions.expr("concat('NET', client_id)") )\
@@ -71,7 +101,13 @@ class NetflixDWTablesFactorer :
     
 
 if __name__ == "__main__":
-
+    """
+    Descrição:
+        Implementação da fabricação das tabelas do DW e salvamento em assets/dw-tables/amazon/ em .parquet
+    
+    Saída: 
+        Este processo gera como saida arquivos .parquet
+    """
     table_factorer = NetflixDWTablesFactorer()
 
     # get tables of DW

@@ -4,8 +4,19 @@ from snowflake_handling import *
 
 
 class SnowflakeDataLoader:
+    """
+    Descrição:
+        CLasse resposável por carrega dados vindos da stagging do S3 para stagging do snowflake
+    """
 
     def __init__(self, plataform_handler: DataPlaformHandler) -> None:
+        """
+        Argumentos:
+            plataform_handler: Instancia da asse que faz interface com SGBD de alguma plataforma.
+        Descrição:
+           carregamento  de parametros necessário para realizar carregamento da stagging do s3 para 
+           stagging do snowflake. 
+        """
 
         #instantiate secret variables
         self.database = os.getenv("DATABASE_NAME")
@@ -20,6 +31,12 @@ class SnowflakeDataLoader:
         
 
     def loadMovieDimensionToDataWarehouse(self) -> None:
+        """
+        Descrição:
+           Método que faz carregamento de dados da dimensão filme que esta no S3 para stagging no Snowflake.
+           Esta função trata exeção para caso algum evento adverso externo ao programa aconteça
+
+        """
         try:
             print("loading Movie Dimension...")
             query = f"""
@@ -38,7 +55,12 @@ class SnowflakeDataLoader:
         
 
     def loadTimeDimensionToDataWarehouse(self) -> None:
+        """
+        Descrição:
+           Método que faz carregamento de dados da dimensão tempo que esta no S3 para stagging no Snowflake.
+           Esta função trata exeção para caso algum evento adverso externo ao programa aconteça
 
+        """
         try:
             print("loading Time Dimension...")
             query = f"""
@@ -56,6 +78,12 @@ class SnowflakeDataLoader:
                 print(str(err))
 
     def loadFactTableToDataWarehouse(self) -> None:
+        """
+        Descrição:
+           Método que faz carregamento de dados da tabela fato que esta no S3 para stagging no Snowflake.
+           Esta função trata exeção para caso algum evento adverso externo ao programa aconteça
+
+        """
         try:
             print("loading Fact Table...")
             query = f"""
@@ -75,7 +103,10 @@ class SnowflakeDataLoader:
 
 
 if __name__ == "__main__":
-        
+        """
+            Descrição:
+                Implementação de carregamento de dados de dados vindos do bucket S3 para Stagging do Snowflake.
+        """
         snowflake_handler = SnowflakeDataPlataformHandler()
         data_loader = SnowflakeDataLoader(plataform_handler=SnowflakeDataPlataformHandler())
 
