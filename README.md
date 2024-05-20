@@ -23,6 +23,14 @@ To solve the challenge, I used the following technical approach:
 - **Amazon S3 Bucket:** Implemented for the staging phase, providing a scalable and durable storage solution for raw data. ☁️🗄️
 - **Snowflake:** Used for implementing the staging phase, creating tables in the Data Warehouse, and transforming and loading data from staging to the Data Warehouse tables. ❄️🏛️
 
+### Data Pipeline soluction
+![image](https://github.com/lucasvittal2/5Gflix-case/assets/62555057/fdd99ab0-4933-4824-9a79-7d122331c17d)
+
+
+### Datawarehouse Projeected
+![image](https://github.com/lucasvittal2/5Gflix-case/assets/62555057/ee772aba-c6a7-4351-a477-74572594524a)
+
+
 ## ✅ Result
 
 This solution allowed the data to be processed and organized efficiently, ensuring that the BI team at "5GFlix" could perform detailed analyses based on accurate data to formulate their market strategies.
