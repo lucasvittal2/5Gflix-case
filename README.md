@@ -14,7 +14,7 @@ To perform these analyses, two datasets were provided:
     - Video_v1_00
     - Video_DVD_v1_00
     - Digital_Video_Download_v1_00
-
+      
 ## 🛠️ Implemented Solution
 
 To solve the challenge, I used the following technical approach:
