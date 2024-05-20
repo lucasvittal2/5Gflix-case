@@ -42,9 +42,9 @@ A little demonstration of final outcome:
 Now 5GFLIX will be able to perform BI consulting to their business 👨‍💼👩‍💼📈📊
 
 
-## 🚀 How to Set Up and Run the 5GFlix Market Analysis Project
+## 🚀 How to Set Up and Run the project
 
-Follow these steps to clone, set up, and run the 5GFlix market analysis project from the cloned GitHub repository.
+Follow these steps 📝 to clone, set up, and run the 5GFlix market analysis project from the cloned GitHub repository.
 
 ### Step-by-Step Instructions 📋
 
