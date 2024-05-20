@@ -35,6 +35,12 @@ To solve the challenge, I used the following technical approach:
 
 This solution allowed the data to be processed and organized efficiently, ensuring that the BI team at "5GFlix" could perform detailed analyses based on accurate data to formulate their market strategies.
 
+A little demonstration of final outcome:
+
+![image](https://github.com/lucasvittal2/5Gflix-case/assets/62555057/b1fdc810-b9f6-44c4-91d7-3e00c5cc3601)
+
+Know 5GFLIX will be able to perform BI consulting to their business 👨‍💼👩‍💼📈📊
+
 
 ## 🚀 How to Set Up and Run the 5GFlix Market Analysis Project
 
