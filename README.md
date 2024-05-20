@@ -2,7 +2,7 @@
 
 ## Introduction
 
-I participated in an interesting challenge proposed by "5GFlix," a new streaming app that aims to define its business strategy through market analysis. The objective was to analyze movies and series available on two competing platforms, Amazon and Netflix, using data provided by them. The CTO of "5GFlix," Alan Turing, requested Solvimm to create a logical structure that would enable the BI team to answer various business questions related to this data.
+I participated in an interesting challenge proposed by "5GFlix" (A fake company) a new streaming app that aims to define its business strategy through market analysis. The objective was to analyze movies and series available on two competing platforms, Amazon and Netflix, using data provided by them. The CTO of "5GFlix," Alan Turing, requested Solvimm to create a logical structure that would enable the BI team to answer various business questions related to this data.
 
 ## 🎯 Objectives
 
